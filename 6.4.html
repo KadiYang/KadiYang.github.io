@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Store Information</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+    th { background-color: #f4f4f4; }
+  </style>
+  <button id="goBack">← Back</button>
+</head>
+<body>
+  <h1>Stores Information</h1>
+  <table id="StoresTable">
+    <thead>
+      <tr>
+        <th>store_id</th>
+        <th>store_name</th>
+        <th>location</th>
+      </tr>
+    </thead>
+    <tbody id="table-body">
+      <!-- Data will be injected here -->
+    </tbody>
+  </table>
+    <script src="../assets/js/6.4.js"></script>
+    <script>
+  document.getElementById("goBack").addEventListener("click", () => {
+    window.location.href = "../index.html";
+  });
+</script>
+</body>
+</html>
+
