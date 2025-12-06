@@ -1,3 +1,4 @@
+
 // Fetch product data from API
 fetch("http://100.91.13.32:5000/api/v1/products")
   .then(response => response.json())
@@ -12,11 +13,11 @@ fetch("http://100.91.13.32:5000/api/v1/products")
       const row = document.createElement("tr");
 
       row.innerHTML = `
-        <td>${product.Product_Id}</td>
-        <td>${product.Product_Name}</td>
-        <td>${product.Product_Category}</td>
-        <td>${product.Product_Cost}</td>
-        <td>${product.Product_Price}</td>
+        <td>${product.product_id}</td>
+        <td>${product.product_name}</td>
+        <td>${product.product_category}</td>
+        <td>${product.product_cost}</td>
+        <td>${product.product_price}</td>
       `;
 
       tableBody.appendChild(row);
@@ -25,4 +26,3 @@ fetch("http://100.91.13.32:5000/api/v1/products")
   .catch(error => {
     console.error("Error fetching products:", error);
   });
-
