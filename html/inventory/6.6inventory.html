@@ -10,11 +10,10 @@
     th { background-color: #f4f4f4; }
   </style>
 
-  <button id="goBack">← Back</button>
 </head>
 
 <body>
-
+  <button id="goBack">← Back</button>
   <h1>Inventory for Store</h1>
 
   <h3>Store ID:
@@ -34,7 +33,7 @@
     </tbody>
   </table>
 
-  <script src="6.6inventory.js"></script>
+  <script src="../../assets/js/inventory_javascript/6.6inventory.js"></script>
 
   <script>
     const params = new URLSearchParams(window.location.search);
@@ -45,8 +44,12 @@
     loadInventory(storeId);
 
     document.getElementById("goBack").addEventListener("click", () => {
-      window.location.href = "../index.html";
-    });
+  const params = new URLSearchParams(window.location.search);
+  const storeId = params.get("store_id");
+
+  window.location.href = `../stores/6.5store_id.html?id=${storeId}`;
+});
+
   </script>
 
 </body>

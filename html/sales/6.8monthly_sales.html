@@ -36,7 +36,7 @@
   </table>
 
   <!-- JS File -->
-  <script src="6.8monthly_sales.js"></script>
+  <script src="../../assets/js/sales_javascript/6.8monthly_sales.js"></script>
 
   <script>
     // Read ?store_id=12 from URL
@@ -48,7 +48,7 @@
     loadMonthlySales(storeId);
 
     document.getElementById("goBack").addEventListener("click", () => {
-      window.location.href = "../index.html";
+  window.location.href = `../stores/6.5store_id.html?id=${storeId}`;
     });
   </script>
 
