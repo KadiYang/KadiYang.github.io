@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Store Inventory</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+    th { background-color: #f4f4f4; }
+  </style>
+
+  <button id="goBack">← Back</button>
+</head>
+
+<body>
+
+  <h1>Inventory for Store</h1>
+
+  <h3>Store ID:
+    <span id="store-id"></span>
+  </h3>
+
+  <table id="inventoryTable">
+    <thead>
+      <tr>
+        <th>Product ID</th>
+        <th>Product Name</th>
+        <th>Current Stock</th>
+      </tr>
+    </thead>
+    <tbody id="table-body">
+      <!-- JS injects rows here -->
+    </tbody>
+  </table>
+
+  <script src="6.6inventory.js"></script>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const storeId = params.get("store_id");
+
+    document.getElementById("store-id").textContent = storeId;
+
+    loadInventory(storeId);
+
+    document.getElementById("goBack").addEventListener("click", () => {
+      window.location.href = "../index.html";
+    });
+  </script>
+
+</body>
+</html>
