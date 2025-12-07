@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Inventory Management</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+    th { background-color: #f4f4f4; }
+  </style>
+
+</head>
+<body>
+  <button id="goBack">← Back</button>
+  <h1>Inventory Management Table</h1>
+  <table id="inventoryTable">
+    <thead>
+      <tr>
+        <th>product_id</th>
+        <th>product_name</th>
+        <th>category</th>
+        <th>cost</th>
+        <th>retail_price</th>
+      </tr>
+    </thead>
+    <tbody id="table-body">
+      <!-- Data will be injected here -->
+    </tbody>
+  </table>
+   <div id="product-detail"></div>
+  <script src="../../assets/js/products_javascript/6.1products.js"></script>    <script>
+  document.getElementById("goBack").addEventListener("click", () => {
+    // CHANGED PATH for robustness
+    window.location.href = "/index.html"; 
+  });
+</script>
+</body>
+</html>
+

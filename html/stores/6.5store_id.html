@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Store Detail</title>
+  <style>
+    body { font-family: Arial; margin: 20px; }
+  </style>
+</head>
+
+<body>
+
+<button id="goBack">← Back</button>
+
+<h1>Store Detailed Information</h1>
+
+<div id="store-detail"></div>
+
+<script src="../../assets/js/stores_javascript/6.5store_id.js"></script>
+
+<script>
+  // Read ?id=#
+  const urlParams = new URLSearchParams(window.location.search);
+  const selectedId = urlParams.get("id");
+
+  // Load store details
+  loadStoreDetail(selectedId);
+
+  // Back button
+  document.getElementById("goBack").addEventListener("click", () => {
+    window.history.back(); // Goes back to the previous page (6.4.html)
+  });
+</script>
+
+</body>
+</html>
