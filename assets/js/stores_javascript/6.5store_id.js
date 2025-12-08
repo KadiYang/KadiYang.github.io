@@ -1,8 +1,9 @@
-function loadStoreDetail(id) { 
+function loadStoreDetail(id) {
   fetch(`http://100.91.13.32:5000/api/v1/stores/${id}`)
     .then(res => res.json())
     .then(data => {
       const s = data.data;
+      
 
       document.getElementById("store-detail").innerHTML = `
         <h2>Store Details</h2>
@@ -12,17 +13,23 @@ function loadStoreDetail(id) {
 
         <button id="viewSales">View Monthly Sales →</button>
         <button id="viewInventory">View Inventory →</button>
+        <button id="viewTransactions">View Sales Transactions →</button>
       `;
 
-      // Sales button
+      // Monthly Sales Button
       document.getElementById("viewSales").addEventListener("click", () => {
         window.location.href = `../sales/6.8monthly_sales.html?store_id=${id}`;
       });
 
-      // ⭐ Inventory button (THIS IS THE NEW PART)
+      // Inventory Button
       document.getElementById("viewInventory").addEventListener("click", () => {
         window.location.href = `../inventory/6.6inventory.html?store_id=${id}`;
       });
+      // Sales Transactions Button
+      document.getElementById("viewTransactions").addEventListener("click", () => {
+  window.location.href = `../sales/6.7sales_transactions.html?store_id=${id}`;
+});
+
     })
     .catch(err => console.error("Fetch failed:", err));
 }
