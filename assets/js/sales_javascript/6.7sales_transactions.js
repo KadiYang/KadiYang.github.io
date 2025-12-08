@@ -2,7 +2,7 @@ const LIMIT = 100;
 
 // Get store_id from URL
 const urlParams = new URLSearchParams(window.location.search);
-const storeId = urlParams.get("store_id") || 1;
+const storeId = urlParams.get("store_id");
 
 // Base endpoint
 const BASE_URL = "http://100.91.13.32:5000/api/v1/sales/store";
@@ -12,6 +12,12 @@ let totalPages = 1;
 
 // Load page N
 async function loadPage(page = 1) {
+  if (!storeId) {
+    renderTable([]);
+    console.error("Missing store_id in query string; cannot load sales.");
+    return;
+  }
+
   const offset = (page - 1) * LIMIT;
 
   const url = `${BASE_URL}/${storeId}?limit=${LIMIT}&offset=${offset}`;
@@ -73,9 +79,14 @@ function renderPagination(current) {
   }
 }
 
-// Load FIRST PAGE
+// Load FIRST PAGE (only if store id is available)
 window.onload = () => loadPage(1);
 
 document.getElementById("goBack").addEventListener("click", () => {
-  window.location.href = `../stores/6.5store_id.html?store_id=${storeId}`;
+  if (storeId) {
+    window.location.href = `../stores/6.5store_id.html?id=${storeId}`;
+  } else {
+    // Fallback if no store id is present in the query string
+    window.history.back();
+  }
 });

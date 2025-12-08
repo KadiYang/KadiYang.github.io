@@ -7,32 +7,24 @@
     body { font-family: Arial; margin: 20px; }
   </style>
 </head>
-
 <body>
+  <button id="goBack"><- Back</button>
 
-<button id="goBack">← Back</button>
-<button id="viewTransactions">View Sales Transactions →</button>
+  <h1>Store Detailed Information</h1>
 
+  <div id="store-detail"></div>
 
-<h1>Store Detailed Information</h1>
+  <script src="../../assets/js/stores_javascript/6.5store_id.js"></script>
 
-<div id="store-detail"></div>
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const selectedId = urlParams.get("id");
 
-<script src="../../assets/js/stores_javascript/6.5store_id.js"></script>
+    loadStoreDetail(selectedId);
 
-<script>
-  // Read ?id=#
-  const urlParams = new URLSearchParams(window.location.search);
-  const selectedId = urlParams.get("id");
-
-  // Load store details
-  loadStoreDetail(selectedId);
-
-  // Back button
-  document.getElementById("goBack").addEventListener("click", () => {
-    window.history.back(); // Goes back to the previous page (6.4.html)
-  });
-</script>
-
+    document.getElementById("goBack").addEventListener("click", () => {
+      window.history.back();
+    });
+  </script>
 </body>
 </html>
