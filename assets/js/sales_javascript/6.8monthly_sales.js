@@ -1,13 +1,32 @@
-function loadMonthlySales(storeId) {
-  fetch(`http://100.91.13.32:5000/api/v1/sales/store/${storeId}/summary`)
-    .then(response => response.json())
-    .then(data => {
-      const tableBody = document.getElementById("table-body");
+const SALES_SUMMARY_API_BASE = "http://100.91.13.32:5000/api/v1";
 
-      if (data.status !== "success") {
-        console.error("API Error:", data.message);
+function loadMonthlySales(storeId) {
+  if (!storeId) {
+    console.error("Missing store ID; cannot load monthly sales.");
+    return;
+  }
+
+  fetch(`${SALES_SUMMARY_API_BASE}/sales/store/${storeId}/summary`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`Monthly sales request failed with status ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      if (!data || data.status !== "success" || !Array.isArray(data.data)) {
+        console.error("Unexpected API response structure:", data);
         return;
       }
+
+      const tableBody = document.getElementById("table-body");
+
+      if (!tableBody) {
+        console.error("Missing #table-body element to render monthly sales.");
+        return;
+      }
+
+      tableBody.innerHTML = "";
 
       // Loop through results and add rows
       data.data.forEach(record => {
