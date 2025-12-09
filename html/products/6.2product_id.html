@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Product Detail</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; color: #222; }
+    .btn { padding: 6px 12px; border: 1px solid #aaa; border-radius: 6px; background: #fff; cursor: pointer; }
+    .btn:hover { background: #f7f7f7; }
+    .back-button { margin-bottom: 16px; }
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <ul class="nav-list">
+
+    <li class="nav-item">
+      <a href="#" id="nav-back" class="nav-link">← Back</a>
+    </li>
+
+    <li class="nav-item">
+      <a href="../../index.html" class="nav-link">Home</a>
+    </li>
+
+    <li class="nav-item">
+      <a href="../products/6.1products.html" class="nav-link">All Products</a>
+    </li>
+
+    <li class="nav-item">
+      <a href="../stores/6.4.html" class="nav-link">All Stores</a>
+    </li>
+
+  </ul>
+</nav>
+
+<script>
+  document.getElementById("nav-back").addEventListener("click", e => {
+    e.preventDefault();
+    window.history.back();
+  });
+</script>
+  <h1>Products Detailed Information</h1>
+
+  <div id="product-detail"></div>
+
+  <script src="../../assets/js/products_javascript/6.2product_id.js"></script>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+    const detailTarget = document.getElementById("product-detail");
+
+    if (id) {
+      loadProductDetail(id);
+    } else if (detailTarget) {
+      detailTarget.innerHTML = "<p>No product ID found in URL.</p>";
+      console.error("Missing product id query parameter.");
+    }
+
+    const backButton = document.getElementById("goBack");
+
+    if (backButton) {
+      backButton.addEventListener("click", () => {
+        window.history.back();
+      });
+    }
+  </script>
+
+</body>
+
+</html>

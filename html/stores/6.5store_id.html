@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Store Detail</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; color: #222; }
+    .btn { padding: 6px 12px; border: 1px solid #aaa; border-radius: 6px; background: #fff; cursor: pointer; }
+    .btn:hover { background: #f7f7f7; }
+    .back-button { margin-bottom: 16px; }
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <ul class="nav-list">
+
+    <li class="nav-item">
+      <a href="#" id="nav-back" class="nav-link">← Back</a>
+    </li>
+
+    <li class="nav-item">
+      <a href="../../index.html" class="nav-link">Home</a>
+    </li>
+
+    <li class="nav-item">
+      <a href="../products/6.1products.html" class="nav-link">All Products</a>
+    </li>
+
+    <li class="nav-item">
+      <a href="../stores/6.4.html" class="nav-link">All Stores</a>
+    </li>
+
+  </ul>
+</nav>
+
+<script>
+  document.getElementById("nav-back").addEventListener("click", e => {
+    e.preventDefault();
+    window.history.back();
+  });
+</script>
+
+  <h1>Store Detailed Information</h1>
+
+  <div id="store-detail"></div>
+
+  <script src="../../assets/js/stores_javascript/6.5store_id.js"></script>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const selectedId = urlParams.get("id");
+    const detailContainer = document.getElementById("store-detail");
+
+    if (selectedId) {
+      loadStoreDetail(selectedId);
+    } else {
+      if (detailContainer) {
+        detailContainer.textContent = "No store ID found in URL.";
+      }
+      console.error("Missing store_id query parameter.");
+    }
+
+    const backButton = document.getElementById("goBack");
+
+    if (backButton) {
+      backButton.addEventListener("click", () => {
+        window.history.back();
+      });
+    }
+  </script>
+</body>
+</html>
