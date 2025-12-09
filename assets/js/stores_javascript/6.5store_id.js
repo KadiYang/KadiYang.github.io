@@ -36,11 +36,13 @@ function loadStoreDetail(id) {
         <button id="viewSales">View Monthly Sales -></button>
         <button id="viewInventory">View Inventory -></button>
         <button id="viewTransactions">View Sales Transactions -></button>
+        <button id="viewForecast">View Forecast -></button>
       `;
 
       const salesBtn = detailEl.querySelector("#viewSales");
       const inventoryBtn = detailEl.querySelector("#viewInventory");
       const transactionsBtn = detailEl.querySelector("#viewTransactions");
+      const forecastBtn = detailEl.querySelector("#viewForecast");
 
       if (salesBtn) {
         salesBtn.addEventListener("click", () => {
@@ -54,12 +56,18 @@ function loadStoreDetail(id) {
         });
       }
 
-      // Sales Transactions Button (scoped to the dynamically rendered detail section)
       if (transactionsBtn) {
         transactionsBtn.addEventListener("click", () => {
           window.location.href = `../sales/6.7sales_transactions.html?store_id=${id}`;
         });
       }
+
+      if (forecastBtn) {
+        forecastBtn.addEventListener("click", () => {
+          window.location.href = `../forecast/6.10forecast.html?store_id=${id}`;
+        });
+      }
+
     })
     .catch(err => console.error("Fetch failed:", err));
 }
