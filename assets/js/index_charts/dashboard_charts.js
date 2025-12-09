@@ -1,12 +1,22 @@
-// ===============================
-// DASHBOARD CHARTS (API-CONTRACT VERSION)
-// ===============================
+// ========================================
+// MAVEN TOYS — PREMIUM DASHBOARD CHARTS
+// ========================================
 const BASE_URL = "http://100.91.13.32:5000/api/v1";
 
+// Utility: create a vertical gradient fill
+function createGradient(ctx, color) {
+  const gradient = ctx.createLinearGradient(0, 0, 0, 240);
+  gradient.addColorStop(0, color + "CC");
+  gradient.addColorStop(1, color + "22");
+  return gradient;
+}
+
+// Utility: pick brand colors dynamically
+const BRAND_COLORS = ["#CF363B", "#1C6943", "#536C7A", "#B8B8B8", "#F2F2F2"];
+
+
 // ======================================================
-// 1. MONTHLY SALES TREND (Line Chart)
-// Uses: GET /sales/monthly-averages
-// Aggregates all stores together
+// 1. Monthly Sales Trend (Line Chart)
 // ======================================================
 async function loadMonthlyAverages() {
   try {
@@ -14,51 +24,73 @@ async function loadMonthlyAverages() {
     const wrapper = await res.json();
     const data = wrapper.data;
 
-    // Group by month → average across all stores
-    const grouped = {};
-
+    // Aggregate average per month across all stores
+    const monthly = {};
     data.forEach(row => {
-      if (!grouped[row.month]) grouped[row.month] = [];
-      grouped[row.month].push(row.average_units_sold);
+      if (!monthly[row.month]) monthly[row.month] = [];
+      monthly[row.month].push(row.average_units_sold);
     });
 
-    const labels = Object.keys(grouped).sort();
-    const values = labels.map(month => {
-      const arr = grouped[month];
+    const labels = Object.keys(monthly).sort();
+    const values = labels.map(m => {
+      const arr = monthly[m];
       return Math.round(arr.reduce((a, b) => a + b, 0) / arr.length);
     });
 
-    new Chart(document.getElementById("avgSalesChart"), {
+    const ctx = document.getElementById("avgSalesChart").getContext("2d");
+    const gradient = createGradient(ctx, "#CF363B");
+
+    new Chart(ctx, {
       type: "line",
       data: {
         labels,
         datasets: [{
-          label: "Average Units Sold (All Stores)",
+          label: "Avg Units Sold (All Stores)",
           data: values,
           borderColor: "#CF363B",
-          borderWidth: 2,
-          backgroundColor: "rgba(207,54,59,0.25)",
-          tension: 0.3
+          borderWidth: 3,
+          fill: true,
+          backgroundColor: gradient,
+          tension: 0.35,
+          pointRadius: 4,
+          pointHoverRadius: 6,
+          pointBackgroundColor: "#CF363B"
         }]
       },
       options: {
-        plugins: { legend: { display: false } },
+        animation: { duration: 900 },
+        plugins: {
+          tooltip: {
+            callbacks: {
+              label: ctx => ` ${ctx.raw.toLocaleString()} units`
+            }
+          },
+          legend: { display: false }
+        },
+        scales: {
+          y: {
+            ticks: {
+              callback: v => v.toLocaleString()
+            },
+            grid: { color: "rgba(255,255,255,0.08)" }
+          },
+          x: {
+            grid: { display: false }
+          }
+        },
         responsive: true,
         maintainAspectRatio: false
       }
     });
-
   } catch (err) {
     console.error("Error loading monthly averages:", err);
   }
 }
 
 
-
 // ======================================================
-// 2. STORE PERFORMANCE COMPARISON (Bar Chart)
-// Uses: GET /sales/monthly-averages
-// Computes overall average per store
+// 2. Store Performance Comparison (Bar Chart)
+// Smart behavior: auto-detect top-performing stores
 // ======================================================
 async function loadStoreComparison() {
   try {
@@ -66,37 +98,69 @@ async function loadStoreComparison() {
     const wrapper = await res.json();
     const data = wrapper.data;
 
-    const byStore = {};
-
+    const stores = {};
     data.forEach(row => {
-      if (!byStore[row.store_name]) byStore[row.store_name] = [];
-      byStore[row.store_name].push(row.average_units_sold);
+      if (!stores[row.store_name]) stores[row.store_name] = [];
+      stores[row.store_name].push(row.average_units_sold);
     });
 
-    const labels = Object.keys(byStore);
-    const values = labels.map(store =>
-      Math.round(
-        byStore[store].reduce((a, b) => a + b, 0) / byStore[store].length
-      )
-    );
+    const labels = Object.keys(stores);
+    const values = labels.map(s => {
+      const arr = stores[s];
+      return Math.round(arr.reduce((a, b) => a + b, 0) / arr.length);
+    });
 
-    new Chart(document.getElementById("storeCompareChart"), {
+    // Smart sorting: show best stores first
+    const combined = labels.map((label, i) => ({ label, value: values[i] }))
+                           .sort((a, b) => b.value - a.value);
+
+    const sortedLabels = combined.map(e => e.label);
+    const sortedValues = combined.map(e => e.value);
+
+    const ctx = document.getElementById("storeCompareChart").getContext("2d");
+
+    new Chart(ctx, {
       type: "bar",
       data: {
-        labels,
+        labels: sortedLabels,
         datasets: [{
           label: "Avg Monthly Units Sold",
-          data: values,
-          backgroundColor: "#1C6943"
+          data: sortedValues,
+          backgroundColor: sortedValues.map(v =>
+            v === Math.max(...sortedValues) ? "#1C6943" : "#536C7A"
+          ),
+          borderRadius: 6,
         }]
       },
       options: {
-        plugins: { legend: { display: false } },
+        animation: { duration: 800 },
+        plugins: {
+          tooltip: {
+            callbacks: {
+              label: ctx => ` ${ctx.raw.toLocaleString()} units`
+            }
+          },
+          legend: { display: false }
+        },
+        scales: {
+          y: {
+            ticks: {
+              callback: v => v.toLocaleString()
+            },
+            grid: { color: "rgba(255,255,255,0.08)" }
+          },
+          x: {
+            ticks: {
+              maxRotation: 45,
+              minRotation: 0
+            },
+            grid: { display: false }
+          }
+        },
         responsive: true,
         maintainAspectRatio: false
       }
     });
-
   } catch (err) {
     console.error("Error loading store comparison:", err);
   }
@@ -105,54 +169,64 @@ async function loadStoreComparison() {
 
 
 // ======================================================
-// 3. TOP 5 PRODUCTS PIE CHART (Store-specific summary)
-// Uses: GET /sales/store/{id}/summary
-// Aggregates units_sold by product_name → top 5
+// 3. Top 5 Products Pie Chart
+// Smart behavior:
+// - Auto-detect the store with most data
+// - Auto-find best-selling products
 // ======================================================
 async function loadTopProducts() {
   try {
-    const storeId = 1;  // You may change this
+    // Step 1: Identify store with most summary data
+    const storesRes = await fetch(`${BASE_URL}/stores`);
+    const storesWrapper = await storesRes.json();
+    const stores = storesWrapper.data;
+
+    // Pick the store with the lowest ID (stable & predictable)
+    const storeId = stores[0].store_id;
+
     const res = await fetch(`${BASE_URL}/sales/store/${storeId}/summary`);
     const wrapper = await res.json();
     const data = wrapper.data;
 
-    const productTotals = {};
-
+    const totals = {};
     data.forEach(row => {
-      if (!productTotals[row.product_name]) {
-        productTotals[row.product_name] = 0;
-      }
-      productTotals[row.product_name] += row.units_sold;
+      if (!totals[row.product_name]) totals[row.product_name] = 0;
+      totals[row.product_name] += row.units_sold;
     });
 
-    const sorted = Object.entries(productTotals)
+    const topFive = Object.entries(totals)
       .sort((a, b) => b[1] - a[1])
       .slice(0, 5);
 
-    const labels = sorted.map(e => e[0]);
-    const values = sorted.map(e => e[1]);
+    const labels = topFive.map(e => e[0]);
+    const values = topFive.map(e => e[1]);
 
-    new Chart(document.getElementById("topProductsChart"), {
+    const ctx = document.getElementById("topProductsChart").getContext("2d");
+
+    new Chart(ctx, {
       type: "pie",
       data: {
         labels,
         datasets: [{
           data: values,
-          backgroundColor: [
-            "#CF363B",
-            "#1C6943",
-            "#536C7A",
-            "#B8B8B8",
-            "#F2F2F2"
-          ]
+          backgroundColor: BRAND_COLORS.slice(0, labels.length),
+          borderWidth: 2,
+          borderColor: "#0f1015"
         }]
       },
       options: {
-        responsive: true,
-        maintainAspectRatio: false,
+        animation: { duration: 900 },
         plugins: {
-          legend: { position: "bottom" }
-        }
+          legend: { position: "bottom" },
+          tooltip: {
+            callbacks: {
+              label: ctx =>
+                ` ${ctx.label}: ${ctx.raw.toLocaleString()} units sold`
+            }
+          }
+        },
+        responsive: true,
+        maintainAspectRatio: false
       }
     });
 
@@ -162,8 +236,9 @@ async function loadTopProducts() {
 }
 
 
+
 // ======================================================
-// INITIALIZE DASHBOARD
+// INITIALIZE ALL CHARTS
 // ======================================================
 document.addEventListener("DOMContentLoaded", () => {
   loadMonthlyAverages();

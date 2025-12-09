@@ -37,18 +37,18 @@ function renderStoreTable(stores, product_id) {
     return;
   }
 
-  let html = `
-    <h2>Product ID: ${product_id}</h2>
-    <table>
+    let html = `
+  <h1 class="page-title">Stores That Carry Product ID ${product_id}</h1>
+  <table class="table">
       <thead>
-        <tr>
-          <th>Store ID</th>
-          <th>Store Name</th>
-          <th>Location</th>
-        </tr>
+          <tr>
+              <th>Store ID</th>
+              <th>Store Name</th>
+              <th>Location</th>
+          </tr>
       </thead>
       <tbody>
-  `;
+`;
 
   // ========================================
   // MAKE STORE_ID A CLICKABLE LINK TO 6.5

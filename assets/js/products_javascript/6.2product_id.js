@@ -43,13 +43,18 @@ function loadProductDetail(id) {
       // ============================
       // ADD LINK TO 6.3 (Stores carrying this product)
       // ============================
-      const storeLink = document.getElementById("store-link");
-      if (storeLink) {
+detailTarget.innerHTML += `
+  <div style="text-align:center; margin-top: 1.5rem;">
+    <button class="btn" onclick="window.location.href='6.3products_store_id.html?product_id=${p.product_id}'">
+      View Stores That Carry This Product →
+    </button>
+  </div>
+`;      if (storeLink) {
         storeLink.innerHTML = `
-          <a class="btn" href="6.3product_store_id.html?product_id=${p.product_id}">
-            View Stores That Carry This Product →
-          </a>
-        `;
+  <button class="btn" onclick="window.location.href='6.3products_store_id.html?product_id=${p.product_id}'">
+    View Stores That Carry This Product →
+  </button>
+`;
       }
 
     })

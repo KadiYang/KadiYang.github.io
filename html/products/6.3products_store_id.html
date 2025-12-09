@@ -8,16 +8,36 @@
 </head>
 <body>
 
-<nav>
-  <img src="../../assets/imgs/maven.png" class="brand-logo" alt="Sidequest Squad Logo">
+<nav class="navbar">
+  <img src="../../assets/imgs/maven.png" class="brand-logo" alt="Maven Toys Logo">
   <span class="nav-title">MAVEN TOYS</span>
 
-  <a href="javascript:history.back()">← Back</a> |
-  <a href="../../index.html">Home</a> |
-  <a href="6.1products.html">All Products</a>
+  <ul class="nav-list">
+    <li class="nav-item">
+      <a href="#" id="nav-back" class="nav-link">← Back</a>
+    </li>
+
+    <li class="nav-item">
+      <a href="../../index.html" class="nav-link">Home</a>
+    </li>
+
+    <li class="nav-item">
+      <a href="../products/6.1products.html" class="nav-link">All Products</a>
+    </li>
+
+    <li class="nav-item">
+      <a href="../stores/6.4.html" class="nav-link">All Stores</a>
+    </li>
+  </ul>
 </nav>
 
-<h1>Stores That Carry This Product</h1>
+<script>
+document.getElementById("nav-back").addEventListener("click", e => {
+  e.preventDefault();
+  window.history.back();
+});
+</script>
+
 
 <div id="store-results"></div>
 
