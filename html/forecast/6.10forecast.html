@@ -3,12 +3,13 @@
 <head>
   <link rel="stylesheet" href="../../assets/css/global.css">
   <meta charset="UTF-8">
-  <title>Store Inventory</title>
+  <title>Store Forecast</title>
 </head>
 
 <body>
+
 <nav class="navbar">
-  <img src="../../assets/imgs/maven.png" class="brand-logo" alt="Sidequest Squad Logo">
+  <img src="../../assets/imgs/maven.png" class="brand-logo" alt="Maven Toys Logo">
   <span class="nav-title">MAVEN TOYS</span>
 
   <ul class="nav-list">
@@ -33,22 +34,19 @@
 </nav>
 
 <script>
-  document.getElementById("nav-back").addEventListener("click", e => {
-    e.preventDefault();
-    window.history.back();
-  });
+document.getElementById("nav-back").addEventListener("click", e => {
+  e.preventDefault();
+  window.history.back();
+});
 </script>
-<body>
 
-  <h1>Forecast Results</h1>
+<h1 class="page-title">Forecast Results</h1>
 
-  <!-- Table container -->
-  <div id="forecast"></div>
+<!-- Table container -->
+<div id="forecast" class="surface"></div>
 
-  <!-- Your Javascript File -->
-  <script src="/assets/js/forecast_javascript/6.10forecast_javascript.js"></script>
-
-
+<!-- Correct script path -->
+<script src="../../assets/js/forecast_javascript/6.10forecast_javascript.js"></script>
 
 </body>
 </html>
