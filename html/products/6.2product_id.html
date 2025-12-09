@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="../../assets/css/global.css">
   <meta charset="UTF-8">
   <title>Product Detail</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; color: #222; }
+    .btn { padding: 6px 12px; border: 1px solid #aaa; border-radius: 6px; background: #fff; cursor: pointer; }
+    .btn:hover { background: #f7f7f7; }
+    .back-button { margin-bottom: 16px; }
+  </style>
 </head>
 <body>
 <nav class="navbar">
+  <img src="../../assets/imgs/sidequest_logo.png" class="brand-logo" alt="Sidequest Squad Logo">
+
   <ul class="nav-list">
 
     <li class="nav-item">
@@ -36,6 +45,8 @@
   <h1>Products Detailed Information</h1>
 
   <div id="product-detail"></div>
+  <div id="store-link"></div>
+
 
   <script src="../../assets/js/products_javascript/6.2product_id.js"></script>
 
@@ -50,6 +61,7 @@
       detailTarget.innerHTML = "<p>No product ID found in URL.</p>";
       console.error("Missing product id query parameter.");
     }
+    
 
     const backButton = document.getElementById("goBack");
 

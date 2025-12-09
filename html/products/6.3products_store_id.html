@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="../../assets/css/global.css">
+  <meta charset="UTF-8">
+  <title>Stores Carrying This Product</title>
+
+</head>
+<body>
+
+<nav>
+  <img src="../../assets/imgs/sidequest_logo.png" class="brand-logo" alt="Sidequest Squad Logo">
+
+  <a href="javascript:history.back()">← Back</a> |
+  <a href="../../index.html">Home</a> |
+  <a href="6.1products.html">All Products</a>
+</nav>
+
+<h1>Stores That Carry This Product</h1>
+
+<div id="store-results"></div>
+
+<script src="../../assets/js/products_javascript/6.3product_store_id.js"></script>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const product_id = params.get("product_id");
+
+  if (product_id) {
+    loadStoresForProduct(product_id);
+  } else {
+    document.getElementById("store-results").innerHTML =
+      "<p class='error'>No product_id found in URL.</p>";
+  }
+</script>
+
+</body>
+</html>

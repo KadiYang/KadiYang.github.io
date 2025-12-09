@@ -2,13 +2,17 @@
    GLOBAL BRAND VARIABLES
 =========================== */
 :root {
-  --p1: #CF363B;
-  --p2: #1C6943;
-  --p3: #536C7A;
+  --p1: #CF363B;     /* RED – primary actions */
+  --p2: #1C6943;     /* GREEN – tables & success */
+  --p3: #536C7A;     /* BLUE-GREY – neutral structural color */
 
   --bg: #000000;
+  --bg-elevated: #0f0f0f;
+
   --text-light: #F2F2F2;
   --text-muted: #B8B8B8;
+
+  --border-color: #1e1e1e;
 
   --font-main: 'Inter', 'Roboto', sans-serif;
 }
@@ -26,16 +30,13 @@ html, body {
 
 h1, h2, h3 {
   margin-bottom: 1rem;
-  color: var(--text-light);
 }
 
 a {
-  color: var(--p1);
-  text-decoration: none;
+  color: var(--p3); /* blue-grey is neutral, professional */
 }
-
 a:hover {
-  color: var(--text-light);
+  color: var(--p1); /* red = interaction highlight */
 }
 
 /* ===========================
@@ -43,11 +44,12 @@ a:hover {
 =========================== */
 .navbar {
   width: 100%;
-  background: #111;
+  background: var(--bg-elevated);
   padding: 0.75rem 1.5rem;
-  border-bottom: 2px solid var(--p1);
   display: flex;
   align-items: center;
+  gap: 1.25rem;
+  border-bottom: 2px solid var(--p3); /* blue-grey = structural */
 }
 
 .nav-list {
@@ -60,94 +62,230 @@ a:hover {
 
 .nav-item .nav-link {
   color: var(--text-light);
-  font-weight: 500;
-  padding: 0.4rem 0.6rem;
+  padding: 0.4rem 0.75rem;
   border-radius: 4px;
+  transition: 0.2s ease;
 }
 
+/* Hover uses a DIFFERENT color family */
 .nav-item .nav-link:hover {
-  background: var(--p1);
+  background: var(--p1); /* red for interactivity */
   color: #fff;
+}
+
+/* Active page indicator */
+.nav-item .nav-link.active {
+  border-bottom: 2px solid var(--p1);
+}
+
+/* ===========================
+   LOGO
+=========================== */
+.brand-logo {
+  height: 48px;
+  margin-right: 1.5rem;
 }
 
 /* ===========================
    BUTTONS
 =========================== */
 button, .btn {
-  background: var(--p1);
-  border: none;
-  padding: 0.6rem 1rem;
-  color: #fff;
+  padding: 0.6rem 1.1rem;
   font-weight: 600;
   cursor: pointer;
   border-radius: 4px;
+  border: 1px solid var(--border-color);
+  transition: 0.2s ease;
 }
 
-button:hover, .btn:hover {
-  background: #a52a2e;
+/* RED – Primary actions */
+.btn-primary, button {
+  background: var(--p1);
+  color: white;
+}
+.btn-primary:hover, button:hover {
+  background: #b52c30;
 }
 
-/* Secondary button */
-.btn-secondary {
-  background: var(--p3);
-}
-
-.btn-secondary:hover {
-  background: #455561;
-}
-
-/* Success button */
+/* GREEN – Success */
 .btn-success {
   background: var(--p2);
+  color: white;
 }
-
 .btn-success:hover {
   background: #145232;
 }
 
+/* BLUE-GREY – Secondary actions */
+.btn-secondary {
+  background: var(--p3);
+  color: white;
+}
+.btn-secondary:hover {
+  background: #455561;
+}
+
 /* ===========================
-   TABLES
+   TABLES (GREEN FOCUSED)
 =========================== */
 .table {
   width: 95%;
-  margin: 1.5rem auto;
+  margin: 2rem auto;
   border-collapse: collapse;
-  background: #111;
-  color: var(--text-light);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+/* Table header uses ONLY GREEN */
+.table th {
+  background: var(--p2);
+  color: #fff;
+  padding: 0.9rem 1rem;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+}
+
+/* Body stays neutral */
+.table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Hover uses BLUE-GREY */
+.table tr:hover {
+  background: rgba(83,108,122,0.25);
+}
+
+/* ===========================
+   CARDS (BLUE-GREY BASE, PER-COLOR VARIANTS)
+=========================== */
+.card {
+  background: var(--bg-elevated);
+  padding: 1.75rem;
+  border-radius: 6px;
+  margin: 1.5rem 0;
+  border: 1px solid var(--p3); /* neutral framing color */
+  box-shadow: 0 0 12px rgba(0,0,0,0.35);
+}
+
+/* Single-color card accents */
+.card-red {
+  border-left: 4px solid var(--p1);
+}
+.card-green {
+  border-left: 4px solid var(--p2);
+}
+.card-blue {
+  border-left: 4px solid var(--p3);
+}
+/* ============================================================
+   SUBTLE SAFE ENHANCEMENTS (NON-BREAKING)
+   These do not affect logo sizes, image scaling, or layout geometry.
+=============================================================== */
+
+/* -------------------------------------------
+   1. Softer global spacing rhythm
+-------------------------------------------- */
+body {
+  padding-bottom: 2rem; /* breathing room at page bottom */
+}
+
+h1, h2, h3 {
+  margin-top: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+/* -------------------------------------------
+   2. Navbar — subtle shading only
+-------------------------------------------- */
+.navbar {
+  box-shadow: 0 2px 10px rgba(0,0,0,0.35); /* soft depth */
+}
+
+.nav-item .nav-link {
+  transition: 0.2s ease;
+}
+
+.nav-item .nav-link:hover {
+  filter: brightness(1.15); /* tiny glow without affecting color */
+}
+
+/* -------------------------------------------
+   3. Tables — gentle elevation + cleaner spacing
+-------------------------------------------- */
+.table {
+  box-shadow: 0 0 10px rgba(0,0,0,0.35); /* subtle table lift */
+  margin-top: 1.75rem;
+  margin-bottom: 2.5rem;
 }
 
 .table th {
-  background: var(--p3);
-  color: #fff;
-  text-align: left;
-  padding: 0.75rem 1rem;
-  font-weight: 600;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 .table td {
-  padding: 0.6rem 1rem;
-  border-bottom: 1px solid #333;
+  padding-top: 0.85rem;
+  padding-bottom: 0.85rem;
 }
 
 .table tr:hover {
-  background: #1a1a1a;
+  filter: brightness(1.05);
 }
 
-/* ===========================
-   CONTAINERS & CARDS
-=========================== */
+/* -------------------------------------------
+   4. Cards — improved depth with SAFE shadows
+-------------------------------------------- */
 .card {
-  background: #111;
-  padding: 1.5rem;
-  border: 1px solid var(--p3);
-  border-radius: 6px;
-  margin: 1rem 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+  transition: 0.25s ease;
 }
 
-/* ===========================
-   LOGO STYLING
-=========================== */
-.brand-logo {
-  height: 48px;
-  margin-right: 1rem;
+.card:hover {
+  box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+  transform: translateY(-2px);
+}
+
+/* -------------------------------------------
+   5. Buttons — soft lift without changing size
+-------------------------------------------- */
+button,
+.btn {
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  transition: 0.22s ease;
+}
+
+button:hover,
+.btn:hover {
+  box-shadow: 0 4px 10px rgba(0,0,0,0.32);
+  transform: translateY(-1px);
+}
+
+/* -------------------------------------------
+   6. Content spacing — gentle page breathing
+-------------------------------------------- */
+#store-detail,
+#product-detail,
+#forecast,
+#inventoryTable,
+#salesTable {
+  margin-top: 1.5rem;
+}
+
+/* -------------------------------------------
+   7. Pagination — improved visibility
+-------------------------------------------- */
+.pagination {
+  margin-top: 1.25rem !important;
+  margin-bottom: 2.75rem !important;
+}
+
+.page-btn {
+  transition: 0.2s ease;
+}
+
+.page-btn:hover {
+  filter: brightness(1.12);
 }
