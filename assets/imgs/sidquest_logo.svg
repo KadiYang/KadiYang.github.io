@@ -1,0 +1,6 @@
+<svg width="140" height="140" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+  <rect x="10" y="10" width="120" height="120" rx="22" fill="#FFD95A"></rect>
+  <path d="M40 95 V55 L55 70 L70 55 V95" fill="#FF5F5F" stroke="#FF3B3B" stroke-width="4" stroke-linejoin="round"></path>
+  <path d="M95 45 L98 52 L105 55 L98 58 L95 65 L92 58 L85 55 L92 52 Z" fill="#4EC5FF" stroke="#1AA4D9" stroke-width="2"></path>
+  <text x="38" y="115" font-size="20" font-family="Comic Sans MS, sans-serif" fill="#FF3B3B">Maven</text>
+</svg>
