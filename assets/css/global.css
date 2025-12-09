@@ -36,8 +36,8 @@
   --grid-gap: 1.25rem;
 
   /* Typography */
-  --font-main: 'Space Grotesk', 'Inter', 'Helvetica Neue', Arial, sans-serif;
-  --font-body: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    --font-main: 'Montserrat', sans-serif;
+    --font-body: 'Montserrat', sans-serif;
 }
 
 /* ============================================================
@@ -524,39 +524,165 @@ textarea:focus {
 }
 
 /* ===========================
-   CENTERED NAV TITLE — Premium Styling
+   RESPONSIVE NAVIGATION
 =========================== */
-.nav-title {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  pointer-events: none;
 
-  font-size: 1.45rem;
-  font-weight: 800;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
+/* Medium screens — start stacking if space gets tight */
+@media (max-width: 900px) {
+  .navbar {
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    padding: 1rem;
+  }
 
-  /* Brand-driven coloring */
-  color: var(--text-light);
+  .nav-list {
+    flex-wrap: wrap;
+    gap: 1rem;
+    width: 100%;
+    justify-content: center;
+  }
 
-  /* Subtle premium glow */
-  text-shadow: 
-    0 0 6px rgba(255,255,255,0.15),
-    0 0 12px rgba(83,108,122,0.35); /* your p3 blue-grey */
-
-  /* Slight transparency for polish */
-  opacity: 0.92;
-
-  /* Modern smooth animation when hovered */
-  transition: 0.25s ease;
+  .nav-item .nav-link {
+    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
+  }
 }
 
-.nav-title:hover {
-  opacity: 1;
-  letter-spacing: 2px;
+
+/* Centered MAVEN TOYS Title */
+.nav-title {
+  flex: 1;                       /* Take the remaining space */
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--text-light);
+  white-space: nowrap;
+}
+
+/* On small screens, stack the title like everything else */
+@media (max-width: 600px) {
+  .nav-title {
+    width: 100%;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* ============================================================
+   DETAIL PANELS (Store, Product, Forecast, etc.)
+=============================================================== */
+
+#product-detail,
+#store-detail {
+  width: var(--content-width);
+  margin: 2rem auto;
+  padding: 2rem 2.25rem;
+
+  background: linear-gradient(145deg, rgba(255,255,255,0.015), rgba(255,255,255,0.03));
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+
+  box-shadow: var(--shadow-soft);
+  transition: var(--transition-med);
+}
+
+#product-detail:hover,
+#store-detail:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-strong);
+}
+
+/* Header inside details */
+#product-detail h2,
+#store-detail h2 {
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--text-strong);
+  text-align: center;
+  margin-bottom: 1.25rem;
+
   text-shadow:
-    0 0 6px rgba(255,255,255,0.25),
-    0 0 14px rgba(83,108,122,0.45),
-    0 0 18px rgba(28,105,67,0.4); /* hint of p2 green */
+    0 0 4px rgba(0,0,0,0.4),
+    0 0 12px rgba(83,108,122,0.25);
+}
+
+/* Label styling */
+#product-detail p strong,
+#store-detail p strong {
+  color: var(--p2); /* brand green for labels */
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+
+/* Value styling */
+#product-detail p,
+#store-detail p {
+  font-size: 1.05rem;
+  color: var(--text-light);
+  margin: 0.4rem 0 0.85rem;
+  line-height: 1.55;
+}
+
+/* ============================================================
+   MONTSERRAT FONT FAMILY (Local)
+=============================================================== */
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../fonts/Montserrat-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../fonts/Montserrat-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../fonts/Montserrat-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../fonts/Montserrat-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../fonts/Montserrat-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../fonts/Montserrat-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+/* (Optional) Italic weights */
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../fonts/Montserrat-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+
+body {
+  font-family: var(--font-main);
+}
+
+h1, h2, h3 {
+  font-family: var(--font-main);
 }
