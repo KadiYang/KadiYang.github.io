@@ -686,3 +686,40 @@ body {
 h1, h2, h3 {
   font-family: var(--font-main);
 }
+
+/* ===========================
+   DASHBOARD CHART LAYOUT
+=========================== */
+.dashboard-container {
+  width: 92%;
+  margin: 2rem auto;
+  display: grid;
+  gap: 2rem;
+}
+
+/* 2 columns on medium+ screens, 1 column on mobile */
+@media (min-width: 850px) {
+  .dashboard-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.chart-card {
+  background: var(--bg-elevated);
+  padding: 1.25rem;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 0 10px rgba(0,0,0,0.35);
+}
+
+.chart-card h2 {
+  margin: 0 0 1rem 0;
+  color: var(--text-light);
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+/* Keep charts from blowing up too large */
+.chart-card canvas {
+  max-height: 260px; /* adjust here for smaller charts */
+}
