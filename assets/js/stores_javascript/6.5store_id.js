@@ -31,7 +31,7 @@ function loadStoreDetail(id) {
         <h2>Store Details</h2>
         <p><strong>ID:</strong> ${s.store_id}</p>
         <p><strong>Name:</strong> ${s.store_name}</p>
-        <p><strong>Location:</strong> ${s.store_city}</p>
+        <p><strong>Location:</strong> ${s.location}</p>
 
         <button id="viewSales">View Monthly Sales -></button>
         <button id="viewInventory">View Inventory -></button>
