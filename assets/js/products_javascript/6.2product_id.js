@@ -28,6 +28,9 @@ function loadProductDetail(id) {
 
       const p = data.data;
 
+      // ============================
+      // RENDER PRODUCT DETAILS
+      // ============================
       detailTarget.innerHTML = `
         <h2>Product Details</h2>
         <p><strong>ID:</strong> ${p.product_id}</p>
@@ -36,6 +39,19 @@ function loadProductDetail(id) {
         <p><strong>Cost:</strong> ${p.product_cost}</p>
         <p><strong>Retail Price:</strong> ${p.product_price}</p>
       `;
+
+      // ============================
+      // ADD LINK TO 6.3 (Stores carrying this product)
+      // ============================
+      const storeLink = document.getElementById("store-link");
+      if (storeLink) {
+        storeLink.innerHTML = `
+          <a class="btn" href="6.3product_store_id.html?product_id=${p.product_id}">
+            View Stores That Carry This Product →
+          </a>
+        `;
+      }
+
     })
     .catch(err => {
       console.error("Error fetching product detail:", err);

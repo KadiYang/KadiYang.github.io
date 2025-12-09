@@ -42,6 +42,8 @@
   <h1>Products Detailed Information</h1>
 
   <div id="product-detail"></div>
+  <div id="store-link"></div>
+
 
   <script src="../../assets/js/products_javascript/6.2product_id.js"></script>
 
@@ -56,6 +58,7 @@
       detailTarget.innerHTML = "<p>No product ID found in URL.</p>";
       console.error("Missing product id query parameter.");
     }
+    
 
     const backButton = document.getElementById("goBack");
 
